@@ -416,6 +416,9 @@ public abstract class AbstractJavaCodegen extends DefaultCodegen implements Code
         // used later in recursive import in postProcessingModels
         importMapping.put("com.fasterxml.jackson.annotation.JsonProperty", "com.fasterxml.jackson.annotation.JsonCreator");
 
+        importMapping.put("Data", "lombok.Data");
+        importMapping.put("Builder", "lombok.Builder");
+
         if (additionalProperties.containsKey(JAVA8_MODE)) {
             setJava8Mode(Boolean.parseBoolean(additionalProperties.get(JAVA8_MODE).toString()));
             if ( java8Mode ) {
@@ -923,6 +926,9 @@ public abstract class AbstractJavaCodegen extends DefaultCodegen implements Code
             final CodegenModel parentCodegenModel = super.fromModel(codegenModel.parent, parentModel);
             codegenModel = AbstractJavaCodegen.reconcileInlineEnums(codegenModel, parentCodegenModel);
         }
+        codegenModel.imports.add("Data");
+        codegenModel.imports.add("Builder");
+
         if (this instanceof NotNullAnnotationFeatures) {
             if (this instanceof NotNullAnnotationFeatures) {
                 notNullOption = (NotNullAnnotationFeatures)this;
